@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"strings"
 	"flag"
+	"path/filepath"
 )
 
 func main() {
@@ -27,7 +28,17 @@ func main() {
 	flag.StringVar(&appId, "i", "", "PFirebaseCrashAppId")
 	flag.Parse()
 
-	upload(accountPath, mappingPath, versionCode, packageName, apiKey, appId)
+	absAccountPath, err := filepath.Abs(accountPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	absMappingPath, err := filepath.Abs(mappingPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	upload(absAccountPath, absMappingPath, versionCode, packageName, apiKey, appId)
 }
 
 func upload(accountPath string, mappingPath string, versionCode int, packageName string, apiKey string, appId string) {
