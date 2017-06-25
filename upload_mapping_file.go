@@ -59,7 +59,8 @@ func upload(accountPath string, mappingPath string, versionCode int, packageName
 	args := append(ks, "firebaseUploadArchivedProguardMapping")
 
 	command := exec.Command("./gradlew", args...)
-	out, err := command.Output()
+	fmt.Println(command.Args)
+	out, err := command.CombinedOutput()
 	if err != nil {
 		fmt.Println(string(out))
 		log.Fatal(err)
