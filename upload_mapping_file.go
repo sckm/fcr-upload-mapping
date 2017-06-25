@@ -52,7 +52,9 @@ func upload(accountPath string, mappingPath string, versionCode int, packageName
 
 	ks := []string{}
 	for k, v := range m {
-		ks = append(ks, strings.Join([]string{k, v}, "="))
+		if v != "" {
+			ks = append(ks, strings.Join([]string{k, v}, "="))
+		}
 	}
 	args := append(ks, "firebaseUploadArchivedProguardMapping")
 
