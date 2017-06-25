@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"io/ioutil"
 	"encoding/json"
+	"os"
 )
 
 var version = "0.1.0"
@@ -86,7 +87,13 @@ func upload(accountPath string, mappingPath string, versionCode int, packageName
 	}
 	args := append(ks, "firebaseUploadArchivedProguardMapping")
 
-	command := exec.Command("./gradlew", args...)
+	curDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	gradleCmd := filepath.Join(curDir, "gradlew")
+	command := exec.Command(gradleCmd, args...)
 	fmt.Println(command.Args)
 	out, err := command.CombinedOutput()
 	if err != nil {
