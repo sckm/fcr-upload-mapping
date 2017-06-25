@@ -12,6 +12,8 @@ import (
 	"encoding/json"
 )
 
+var version = "0.1.0"
+
 func main() {
 
 	var (
@@ -22,6 +24,7 @@ func main() {
 		googleServicesPath string
 		apiKey             string
 		appId              string
+		showVersion        bool
 	)
 	flag.StringVar(&accountPath, "a", "", "FirebaseServiceAccountFilePath")
 	flag.StringVar(&mappingPath, "m", "", "FirebaseCrashMappingFilePath")
@@ -30,7 +33,14 @@ func main() {
 	flag.StringVar(&googleServicesPath, "s", "", "Optional: google-services.json path")
 	flag.StringVar(&apiKey, "k", "", "Optional: PFirebaseCrashApiKey")
 	flag.StringVar(&appId, "i", "", "Optional: PFirebaseCrashAppId")
+	flag.BoolVar(&showVersion, "version", false, "show version")
+	flag.BoolVar(&showVersion, "v", false, "show version")
 	flag.Parse()
+
+	if showVersion {
+		fmt.Println("version: ", version)
+		return
+	}
 
 	absAccountPath, err := filepath.Abs(accountPath)
 	if err != nil {
