@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type GoogleServicesJson struct {
 	Clients []Client `json:"client"`
 }
@@ -46,7 +44,6 @@ func (client Client) GetAppId() string {
 
 func (servics GoogleServicesJson) GetClientBy(packageName string) *Client {
 	for _, client := range servics.Clients {
-		fmt.Println("package name = ", client.Info.Android.PackageName)
 		if client.Info.Android.PackageName == packageName {
 			return &client
 		}
